@@ -40,7 +40,7 @@ window.APP_CONFIG = {
 
   content: {
     hero: {
-      banner: "banner.jpg",
+      banner: "banner.jpg.png",
       headline: "Sharp Cuts. Clean Fades.",
       subtext: "Haircuts, fades, beard work, and hot shaves — your local barbershop done right.",
       buttons: [
@@ -62,12 +62,12 @@ window.APP_CONFIG = {
 
     bannerStrips: [
       {
-        image: "strip1.jpg",
+        image: "strip1.jpg.png",
         headline: "Fresh Fades, Every Time",
         subtext: "Walk out looking your best."
       },
       {
-        image: "strip2.jpg",
+        image: "strip2.jpg.png",
         headline: "Beard Work & Hot Shaves",
         subtext: "The full barbershop experience."
       }
