@@ -16,9 +16,9 @@ window.APP_CONFIG = {
   },
 
   branding: {
-    primary: "#8B0000",
-    accent: "#D4A017",
-    theme: "sunset",
+    primary: "#C724B1",
+    accent: "#FF4FD8",
+    theme: "galaxy",
     neon: { on: true, color: "match", width: 3 }
   },
 
