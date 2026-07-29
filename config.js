@@ -40,7 +40,7 @@ window.APP_CONFIG = {
 
   content: {
     hero: {
-      banner: "bannershearskill-banner.jpg.png",
+      banner: "shearskill-banner.jpg",
       headline: "Sharp Cuts. Clean Fades.",
       subtext: "Haircuts, fades, beard work, and hot shaves — your local barbershop done right.",
       buttons: [
