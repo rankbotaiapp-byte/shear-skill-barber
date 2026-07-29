@@ -71,6 +71,31 @@
   const icon = (name, size = 20) =>
     `<i data-lucide="${name}" width="${size}" height="${size}"></i>`;
 
+  async function saveOrderToDashboard(name, phone, message, source) {
+    try {
+      await fetch("https://ipnmgmzihndtgufxwkuh.supabase.co/rest/v1/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "sb_publishable_iZVME-itegalWU6HyO50MA_5vkhSDSi",
+          "Authorization": "Bearer sb_publishable_iZVME-itegalWU6HyO50MA_5vkhSDSi",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          business_id: cfg.meta?.leadId || "unknown",
+          customer_name: name || "",
+          phone: phone || "",
+          message: message || "",
+          source: source,
+          status: "new",
+          created_at: new Date().toISOString()
+        })
+      });
+    } catch (e) {
+      console.error("Dashboard save failed:", e);
+    }
+  }
+
   const modules = {
     hero: () => {
       const h = cfg.content.hero || {};
@@ -87,6 +112,19 @@
           <h2 class="hero-headline">${h.headline || cfg.business.tagline || ""}</h2>
           <p class="hero-sub">${h.subtext || ""}</p>
           <div class="hero-btns">${btns}</div>
+        </div>
+      </section>`;
+    },
+    locationPin: () => {
+      const loc = cfg.locationPin;
+      if (!loc || !loc.on) return "";
+      return `
+      <section class="location-pin">
+        <div class="location-pin-inner">
+          <div class="location-pin-label">${icon("map-pin", 20)} Where We Are Today</div>
+          <div class="location-pin-current">${loc.current || "Check back soon"}</div>
+          ${loc.note ? `<div class="location-pin-note">${loc.note}</div>` : ""}
+          ${loc.mapLink ? `<a class="location-pin-btn" href="${loc.mapLink}" target="_blank">${icon("navigation", 16)} Get Directions</a>` : ""}
         </div>
       </section>`;
     },
@@ -306,6 +344,7 @@
           form.querySelectorAll("input,textarea,button").forEach(el => el.remove());
           ok.hidden = false;
           if (cfg.meta?.mode === "demo") showLeadDemo(nameVal, phoneVal, msgVal, secs);
+          saveOrderToDashboard(nameVal, phoneVal, msgVal, "booking_form");
         })
         .catch(() => {
           btn.disabled = false;
@@ -495,6 +534,7 @@
       if (cfg.meta?.mode === "demo") {
         showLeadDemo(booking.customer_name, booking.phone, booking.service, "0.9");
       }
+      saveOrderToDashboard(booking.customer_name, booking.phone, booking.service, "axiom_chat");
     }
 
     sendBtn.onclick = () => sendMessage(input.value);
@@ -636,7 +676,6 @@
       scene.appendChild(el);
     }
 
-    
     addCreature(crabSVG, "crab", 0);
 
     function spawnBubble() {
